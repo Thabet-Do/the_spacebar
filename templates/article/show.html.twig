@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Read {{ title }} {% endblock title %}
+
+{% block body %}
+    {{ dump() }}
+    <h1>{{ title }}</h1>
+    <div class="text">
+        <p>
+            text   text   text   text   text   text   text   text   text   text   text   text
+        </p>
+        <p>
+            text   text   text   text   text   text   text   text   text   text   text   text
+        </p>
+        <p>
+            text   text   text   text   text   text   text   text   text   text   text   text
+        </p>
+        <p>
+            text   text   text   text   text   text   text   text   text   text   text   text
+        </p>
+        <p>
+            text   text   text   text   text   text   text   text   text   text   text   text
+        </p>
+        <p>
+            text   text   text   text   text   text   text   text   text   text   text   text
+        </p>
+    </div>
+
+    <h2>comments ({{ comments|length }})</h2>
+    <ul>
+        {% for comment in comments %}
+             <li>{{ comment }}</li>
+        {% endfor %}
+    </ul>
+{% endblock body %}
