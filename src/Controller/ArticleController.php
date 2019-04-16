@@ -10,11 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 class ArticleController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/",name="app_homepage")
      */
     public function homepage()
     {
-        return new Response('My First Page ');
+        return $this->render('article/homepage.html.twig');
     }
 //    /**
 //     * @Route("/news2/{slag}")
@@ -27,17 +27,16 @@ class ArticleController extends AbstractController
 //        ));
 //    }
     /**
-     * @Route("/news/{slag}")
+     * @Route("/news/{slag}",name="article_show")
      */
     public function show($slag)
     {
         $comments = [
-            '   Comment -_- 1 -_-',
-            '   Comment -_- 2 -_-',
-            '   Comment -_- 3 -_-',
+            'I ate a normal rock once. It did NOT taste like bacon!',
+            'Woohoo! I\'m going on an all-asteroid diet!',
+            'I like bacon too! Buy some from my site! bakinsomebacon.com',
         ];
         return $this->render('article/show.html.twig',[
-
             'title'=>ucwords(str_replace('-',' ', $slag)),
             'comments'=>$comments
         ]);
