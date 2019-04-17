@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use Michelf\MarkdownInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,7 +22,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/news/{slug}",name="article_show")
      */
-    public function show($slug)
+    public function show($slug, MarkdownInterface $markdown)
     {
         $comments = [
             'I ate a normal rock once. It did NOT taste like bacon!',
@@ -29,11 +30,10 @@ class ArticleController extends AbstractController
             'I like bacon too! Buy some from my site! bakinsomebacon.com',
         ];
         $articleContent = <<<EOF
-Spicy **jalapeno bacon** ipsum dolor amet veniam shank in dolore. Ham hock nisi landjaeger cow,
-lorem proident [beef ribs](https://baconipsum.com/) aute enim veniam ut cillum pork chuck picanha. Dolore reprehenderit
-labore minim pork belly spare ribs cupim short loin in. Elit exercitation eiusmod dolore cow
-turkey shank eu pork belly meatball non cupim.
-<br>
+picy **jalapeno bacon** ipsum dolor amet veniam shank in dolore. Ham hock nisi landjaeger cow,
+orem proident [beef ribs](https://baconipsum.com/) aute enim veniam ut cillum pork chuck picanha. Dolore reprehenderit
+abore minim pork belly spare ribs cupim short loin in. Elit exercitation eiusmod dolore cow
+urkey shank eu pork belly meatball non cupim.
 Laboris beef ribs fatback fugiat eiusmod jowl kielbasa alcatra dolore velit ea ball tip. Pariatur
 laboris sunt venison, et laborum dolore minim non meatball. Shankle eu flank aliqua shoulder,
 capicola biltong frankfurter boudin cupim officia. Exercitation fugiat consectetur ham. Adipisicing
@@ -45,13 +45,18 @@ strip steak pork belly aliquip capicola officia. Labore deserunt esse chicken lo
 cow est ribeye adipisicing. Pig hamburger pork belly enim. Do porchetta minim capicola irure pancetta chuck
 fugiat.
 EOF;
+
+        $articleContent = $markdown->transform($articleContent);
+
         return $this->render('article/show.html.twig',[
             'title'=>ucwords(str_replace('-',' ', $slug)),
             'slug'=>$slug,
             'comments'=>$comments,
             'articleContent' => $articleContent,
         ]);
+
     }
+
 
     /**
      * @Route("/news/{slug}/hart",name="article_toggle-hart", methods={"POST"})
