@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,20 +17,10 @@ class ArticleController extends AbstractController
     {
         return $this->render('article/homepage.html.twig');
     }
-//    /**
-//     * @Route("/news2/{slag}")
-//     */
-//    public function show2($slag)
-//    {
-//        return new Response(sprintf(
-//            'Future page to show the article: "%s"',
-//            $slag
-//        ));
-//    }
     /**
-     * @Route("/news/{slag}",name="article_show")
+     * @Route("/news/{slug}",name="article_show")
      */
-    public function show($slag)
+    public function show($slug)
     {
         $comments = [
             'I ate a normal rock once. It did NOT taste like bacon!',
@@ -37,8 +28,18 @@ class ArticleController extends AbstractController
             'I like bacon too! Buy some from my site! bakinsomebacon.com',
         ];
         return $this->render('article/show.html.twig',[
-            'title'=>ucwords(str_replace('-',' ', $slag)),
+            'title'=>ucwords(str_replace('-',' ', $slug)),
+            'slug'=>$slug,
             'comments'=>$comments
         ]);
+    }
+
+    /**
+     * @Route("/news/{slug}/hart",name="article_toggle-hart", methods={"POST"})
+     */
+    public function togglenArticleHart($slug)
+    {
+        // TODO - article hart/unhart the article
+        return new JsonResponse(['hart' => rand(5,100)]);
     }
 }
