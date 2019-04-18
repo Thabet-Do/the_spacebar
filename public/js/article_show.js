@@ -6,7 +6,7 @@ $(document).ready(function () {
 
         $.ajax({
 
-           method:'POST',
+            method: 'POST',
             url: $link.attr('href')
 
         }).done(function (data) {
