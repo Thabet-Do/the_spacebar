@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 
+use App\Entity\Product;
 use Michelf\MarkdownInterface;
 use Psr\Log\LoggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,5 +70,13 @@ EOF;
         $logger->info('Article has been hearted');
 
         return new JsonResponse(['hart' => rand(5,100)]);
+    }
+
+    /**
+     * @Route("/show/{id}")
+     */
+    public function showProduct(Product $product)
+    {
+        return new Response();
     }
 }
